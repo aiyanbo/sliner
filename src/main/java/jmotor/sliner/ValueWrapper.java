@@ -1,4 +1,4 @@
-package jmotor.sliner.parser;
+package jmotor.sliner;
 
 /**
  * Component:
@@ -7,6 +7,5 @@ package jmotor.sliner.parser;
  *
  * @author Andy Ai
  */
-public class ConditionExpressParser {
-
+public class ValueWrapper {
 }
