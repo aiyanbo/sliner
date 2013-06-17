@@ -1,7 +1,7 @@
 #################
 ## Eclipse
 #################
-
+*.iml
 *.pydevproject
 .project
 .metadata
