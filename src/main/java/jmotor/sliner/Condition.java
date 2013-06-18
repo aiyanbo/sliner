@@ -8,11 +8,20 @@ package jmotor.sliner;
  * @author Andy Ai
  */
 public class Condition {
+    private String name;
     private String expression;
     private String columnName;
     private SqlOperator operator;
     private Object value;
     private ValueWrapper valueWrapper;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getExpression() {
         return expression;

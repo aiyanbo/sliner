@@ -7,5 +7,18 @@ package jmotor.sliner;
  *
  * @author Andy Ai
  */
-public class ValueWrapper {
+public enum ValueWrapper {
+    L("l"),
+    R("r"),
+    A("a");
+
+    private String wrapper;
+
+    private ValueWrapper(String wrapper) {
+        this.wrapper = wrapper;
+    }
+
+    public String getWrapper() {
+        return wrapper;
+    }
 }
