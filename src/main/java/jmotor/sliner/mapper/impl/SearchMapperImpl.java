@@ -7,11 +7,15 @@ import jmotor.sliner.mapper.ConditionMapping;
 import jmotor.sliner.mapper.SearchMapper;
 import jmotor.sliner.mapper.SearchMapperXPath;
 import jmotor.sliner.mapper.SorterMapping;
+import jmotor.util.CollectionUtils;
 import jmotor.util.XmlUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -73,9 +77,11 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
         Element rootElement = document.getRootElement();
         String schema = XmlUtils.getAttribute(rootElement, SCHEMA_ATTR);
         Node conditionsNode = rootElement.selectSingleNode(CONDITIONS_NODE);
-        Set<ConditionMapping> conditionMappings = parseConditionMappings(conditionsNode);
+        List<Node> conditionNodes = conditionsNode.selectNodes(CONDITION_NODE);
+        Set<ConditionMapping> conditionMappings = parseConditionMappings(conditionNodes);
         Node sortersNode = rootElement.selectSingleNode(SORTERS_NODE);
-        Set<SorterMapping> sorterMappings = parseSorterMappings(sortersNode);
+        List<Node> sorterNodes = sortersNode.selectNodes(SORTER_NODE);
+        Set<SorterMapping> sorterMappings = parseSorterMappings(sorterNodes);
         SearchMapping searchMapping = new SearchMapping();
         searchMapping.setKey(key);
         searchMapping.setSchema(schema);
@@ -84,12 +90,35 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
         return searchMapping;
     }
 
-    private Set<ConditionMapping> parseConditionMappings(Node conditionsNode) {
-        return null;
+    private Set<ConditionMapping> parseConditionMappings(List<Node> conditionNodes) {
+        Set<ConditionMapping> mappings = new HashSet<ConditionMapping>(conditionNodes.size());
+        for (Node node : conditionNodes) {
+            String name = XmlUtils.getAttribute(node, NAME_ATTR);
+            String column = XmlUtils.getAttribute(node, COLUMN_ATTR);
+            String type = XmlUtils.getAttribute(node, TYPE_ATTR);
+            ConditionMapping mapping = new ConditionMapping();
+            mapping.setName(name);
+            mapping.setColumnName(column);
+            mapping.setType(type);
+            mappings.add(mapping);
+        }
+        return mappings;
     }
 
-    private Set<SorterMapping> parseSorterMappings(Node sortersNode) {
-        return null;
+    private Set<SorterMapping> parseSorterMappings(List<Node> sorterNodes) {
+        if (CollectionUtils.isNotEmpty(sorterNodes)) {
+            Set<SorterMapping> mappings = new HashSet<SorterMapping>(sorterNodes.size());
+            for (Node node : sorterNodes) {
+                String name = XmlUtils.getAttribute(node, NAME_ATTR);
+                String column = XmlUtils.getAttribute(node, COLUMN_ATTR);
+                SorterMapping mapping = new SorterMapping();
+                mapping.setName(name);
+                mapping.setColumnName(column);
+                mappings.add(mapping);
+            }
+            return mappings;
+        }
+        return Collections.emptySet();
     }
 
     public void setSuffix(String suffix) {
