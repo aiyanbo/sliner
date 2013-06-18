@@ -15,12 +15,14 @@ Keyword
 ======
 
 4: 指定查询操作符
+
 2: 值包装方式，主要用于LIKE操作。
 
 Expression
 ======
 
 name4operator = value
+
 name4operator2valueWrapper = value
 
 例如：
