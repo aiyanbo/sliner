@@ -33,15 +33,18 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     private Long cacheInSeconds = 10L;
     private String workingPath = "config/mapper";
 
+    public SearchMapperImpl() {
+        initComponent();
+    }
+
     private void initComponent() {
         searchMappingCache = CacheBuilder.newBuilder().
                 expireAfterWrite(cacheInSeconds, TimeUnit.SECONDS).
                 maximumSize(1024).
-
                 build(new CacheLoader<String, SearchMapping>() {
                     @Override
                     public SearchMapping load(String key) throws Exception {
-                        return null;
+                        return parseSearchMapping(key);
                     }
                 });
 

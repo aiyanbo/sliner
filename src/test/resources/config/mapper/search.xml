@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search key="" schema="tb_seller">
+    <conditions>
+        <condition name="sellerType" column="seller_type" type="java.lang.Long"/>
+        <condition name="sellerName" column="seller_name" type="java.lang.String"/>
+    </conditions>
+    <sorters>
+        <sorter name="level" column="level"/>
+        <sorter name="age" column="age"/>
+    </sorters>
+</search>
