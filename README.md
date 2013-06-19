@@ -57,3 +57,18 @@ sliner 根据目标实体和参数生成SQL查询语句
 select * from user where name LIKE '%Andy%' and age > 23
 
 ```
+
+Examples
+======
+https://github.com/aiyanbo/sliner/tree/master/src/test/java/jmotor/sliner
+
+Version
+=====
+0.0.1
+
+Dependencies
+=======
+jmotor.util:utility 0.0.1
+jaxen:jaxen 1.1.1
+dom4j:dom4j 1.6.1
+com.google.guava:guava 14.0.1
