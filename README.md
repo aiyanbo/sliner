@@ -69,6 +69,9 @@ Version
 Dependencies
 =======
 jmotor.util:utility 0.0.1
+
 jaxen:jaxen 1.1.1
+
 dom4j:dom4j 1.6.1
+
 com.google.guava:guava 14.0.1
