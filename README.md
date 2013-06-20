@@ -27,7 +27,7 @@ name4operator2valueWrapper = value
 
 例如：
 
-```java
+```
 
 name4Like2a = "Andy";
 解析成: name LIKE '%Andy%'
