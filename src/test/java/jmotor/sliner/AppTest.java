@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class AppTest extends TestCase {
     public void test() {
-        SqlLiner sqlLiner = SqlLinerBuilder.build();
+        SqlLiner sqlLiner = SqlLinerBuilder.newBuilder().suffix(".xml").build();
         Map<String, String> conditions = new HashMap<String, String>();
         conditions.put("sellerName4Like2a", "Andy");
         conditions.put("sellerType", "1204");

@@ -13,24 +13,43 @@ import jmotor.sliner.parser.impl.SelectionExpressionParserImpl;
  * @author Andy Ai
  */
 public class SqlLinerBuilder {
-    private static SqlLiner sqlLiner;
+    private String suffix = ".xml";
+    private Long cacheInSeconds = 10L;
+    private String workingPath = "config/mapper";
 
     private SqlLinerBuilder() {
     }
 
-    public static SqlLiner build() {
-        if (null == sqlLiner) {
-            synchronized (SqlLinerBuilder.class) {
-                if (null == sqlLiner) {
-                    SqlLinerImpl ins = new SqlLinerImpl();
-                    SelectionGeneratorImpl selectionGenerator = new SelectionGeneratorImpl();
-                    selectionGenerator.setExpressionParser(new SelectionExpressionParserImpl());
-                    selectionGenerator.setSearchMapper(new SearchMapperImpl());
-                    ins.setSelectionGenerator(selectionGenerator);
-                    sqlLiner = ins;
-                }
-            }
-        }
+    public static SqlLinerBuilder newBuilder() {
+        return new SqlLinerBuilder();
+    }
+
+    public SqlLiner build() {
+        SqlLinerImpl sqlLiner = new SqlLinerImpl();
+        SelectionGeneratorImpl selectionGenerator = new SelectionGeneratorImpl();
+        selectionGenerator.setExpressionParser(new SelectionExpressionParserImpl());
+        SearchMapperImpl searchMapper = new SearchMapperImpl();
+        searchMapper.setSuffix(suffix);
+        searchMapper.setWorkingPath(workingPath);
+        searchMapper.setCacheInSeconds(cacheInSeconds);
+        selectionGenerator.setSearchMapper(searchMapper);
+        sqlLiner.setSelectionGenerator(selectionGenerator);
         return sqlLiner;
+    }
+
+
+    public SqlLinerBuilder suffix(String suffix) {
+        this.suffix = suffix;
+        return this;
+    }
+
+    public SqlLinerBuilder cacheInSeconds(Long cacheInSeconds) {
+        this.cacheInSeconds = cacheInSeconds;
+        return this;
+    }
+
+    public SqlLinerBuilder workingPath(String workingPath) {
+        this.workingPath = workingPath;
+        return this;
     }
 }
