@@ -11,6 +11,11 @@ sliner 全称SQL Liner，是一个sql生成器。主要通过外部参入的表�
  - IS
  - LIKE
 
+Blogs
+======
+https://github.com/aiyanbo/sliner/wiki/Dynamic-Index-Generator
+
+
 Keyword
 ======
 
