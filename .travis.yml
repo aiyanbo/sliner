@@ -4,7 +4,7 @@ jdk:
   - openjdk7
   - oraclejdk7
 
-before_script:
+before_install:
   - git clone https://github.com/aiyanbo/jmotor-utility.git
   - cd jmotor-utility
   - mvn clean install -DskipTests=true
