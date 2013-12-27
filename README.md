@@ -73,7 +73,7 @@ Version
 
 Dependencies
 =======
- - jmotor.util:utility 0.0.1
+ - org.jmotor:jmotor-utility 1.0-SNAPSHOT
  - jaxen:jaxen 1.1.1
  - dom4j:dom4j 1.6.1
- - com.google.guava:guava 14.0.1
+ - com.google.guava:guava 15.0
