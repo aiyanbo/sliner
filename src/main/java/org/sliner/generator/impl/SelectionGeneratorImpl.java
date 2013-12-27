@@ -1,16 +1,16 @@
-package jmotor.sliner.generator.impl;
+package org.sliner.generator.impl;
 
-import jmotor.sliner.Condition;
-import jmotor.sliner.Sorter;
-import jmotor.sliner.SqlOperator;
-import jmotor.sliner.ValueWrapper;
-import jmotor.sliner.generator.SelectionGenerator;
-import jmotor.sliner.mapper.ConditionMapping;
-import jmotor.sliner.mapper.SearchMapper;
-import jmotor.sliner.mapper.SorterMapping;
-import jmotor.sliner.parser.SelectionExpressionParser;
-import jmotor.util.StringUtils;
-import jmotor.util.converter.SimpleValueConverter;
+import org.sliner.Condition;
+import org.sliner.Sorter;
+import org.sliner.SqlOperator;
+import org.sliner.ValueWrapper;
+import org.sliner.generator.SelectionGenerator;
+import org.sliner.mapper.ConditionMapping;
+import org.sliner.mapper.SearchMapper;
+import org.sliner.mapper.SorterMapping;
+import org.sliner.parser.SelectionExpressionParser;
+import org.jmotor.util.StringUtilities;
+import org.jmotor.util.converter.SimpleValueConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,10 +100,10 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
                 _val = "%" + _val;
                 break;
             case A:
-                _val = StringUtils.surround(_val, "%");
+                _val = StringUtilities.surround(_val, "%");
                 break;
             default:
-                _val = StringUtils.surround(_val, "%");
+                _val = StringUtilities.surround(_val, "%");
                 break;
         }
         return _val;

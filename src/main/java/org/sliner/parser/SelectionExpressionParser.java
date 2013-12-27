@@ -1,7 +1,7 @@
-package jmotor.sliner.parser;
+package org.sliner.parser;
 
-import jmotor.sliner.Condition;
-import jmotor.sliner.Sorter;
+import org.sliner.Condition;
+import org.sliner.Sorter;
 
 /**
  * Component:

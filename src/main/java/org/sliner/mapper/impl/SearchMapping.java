@@ -1,7 +1,7 @@
-package jmotor.sliner.mapper.impl;
+package org.sliner.mapper.impl;
 
-import jmotor.sliner.mapper.ConditionMapping;
-import jmotor.sliner.mapper.SorterMapping;
+import org.sliner.mapper.ConditionMapping;
+import org.sliner.mapper.SorterMapping;
 
 import java.util.Set;
 

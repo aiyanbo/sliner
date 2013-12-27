@@ -1,14 +1,14 @@
-package jmotor.sliner.mapper.impl;
+package org.sliner.mapper.impl;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import jmotor.sliner.mapper.ConditionMapping;
-import jmotor.sliner.mapper.SearchMapper;
-import jmotor.sliner.mapper.SearchMapperXPath;
-import jmotor.sliner.mapper.SorterMapping;
-import jmotor.util.CollectionUtils;
-import jmotor.util.XmlUtils;
+import org.sliner.mapper.ConditionMapping;
+import org.sliner.mapper.SearchMapper;
+import org.sliner.mapper.SearchMapperXPath;
+import org.sliner.mapper.SorterMapping;
+import org.jmotor.util.CollectionUtilities;
+import org.jmotor.util.XmlUtilities;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -76,9 +76,9 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     @SuppressWarnings("unchecked")
     private SearchMapping parseSearchMapping(String key) {
         String fileName = workingPath.replace("\\", "/") + "/" + key + suffix;
-        Document document = XmlUtils.loadDocument(fileName);
+        Document document = XmlUtilities.loadDocument(fileName);
         Element rootElement = document.getRootElement();
-        String schema = XmlUtils.getAttribute(rootElement, SCHEMA_ATTR);
+        String schema = XmlUtilities.getAttribute(rootElement, SCHEMA_ATTR);
         Node conditionsNode = rootElement.selectSingleNode(CONDITIONS_NODE);
         List<Node> conditionNodes = conditionsNode.selectNodes(CONDITION_NODE);
         Set<ConditionMapping> conditionMappings = parseConditionMappings(conditionNodes);
@@ -94,11 +94,11 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     }
 
     private Set<ConditionMapping> parseConditionMappings(List<Node> conditionNodes) {
-        Set<ConditionMapping> mappings = new HashSet<ConditionMapping>(conditionNodes.size());
+        Set<ConditionMapping> mappings = new HashSet<>(conditionNodes.size());
         for (Node node : conditionNodes) {
-            String name = XmlUtils.getAttribute(node, NAME_ATTR);
-            String column = XmlUtils.getAttribute(node, COLUMN_ATTR);
-            String type = XmlUtils.getAttribute(node, TYPE_ATTR);
+            String name = XmlUtilities.getAttribute(node, NAME_ATTR);
+            String column = XmlUtilities.getAttribute(node, COLUMN_ATTR);
+            String type = XmlUtilities.getAttribute(node, TYPE_ATTR);
             ConditionMapping mapping = new ConditionMapping();
             mapping.setName(name);
             mapping.setColumnName(column);
@@ -109,11 +109,11 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     }
 
     private Set<SorterMapping> parseSorterMappings(List<Node> sorterNodes) {
-        if (CollectionUtils.isNotEmpty(sorterNodes)) {
-            Set<SorterMapping> mappings = new HashSet<SorterMapping>(sorterNodes.size());
+        if (CollectionUtilities.isNotEmpty(sorterNodes)) {
+            Set<SorterMapping> mappings = new HashSet<>(sorterNodes.size());
             for (Node node : sorterNodes) {
-                String name = XmlUtils.getAttribute(node, NAME_ATTR);
-                String column = XmlUtils.getAttribute(node, COLUMN_ATTR);
+                String name = XmlUtilities.getAttribute(node, NAME_ATTR);
+                String column = XmlUtilities.getAttribute(node, COLUMN_ATTR);
                 SorterMapping mapping = new SorterMapping();
                 mapping.setName(name);
                 mapping.setColumnName(column);

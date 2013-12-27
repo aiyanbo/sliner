@@ -1,9 +1,9 @@
-package jmotor.sliner;
+package org.sliner;
 
-import jmotor.sliner.generator.impl.SelectionGeneratorImpl;
-import jmotor.sliner.impl.SqlLinerImpl;
-import jmotor.sliner.mapper.impl.SearchMapperImpl;
-import jmotor.sliner.parser.impl.SelectionExpressionParserImpl;
+import org.sliner.generator.impl.SelectionGeneratorImpl;
+import org.sliner.impl.SqlLinerImpl;
+import org.sliner.mapper.impl.SearchMapperImpl;
+import org.sliner.parser.impl.SelectionExpressionParserImpl;
 
 /**
  * Component:

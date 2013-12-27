@@ -1,11 +1,11 @@
-package jmotor.sliner.parser.impl;
+package org.sliner.parser.impl;
 
-import jmotor.sliner.Condition;
-import jmotor.sliner.SortOperator;
-import jmotor.sliner.Sorter;
-import jmotor.sliner.SqlOperator;
-import jmotor.sliner.ValueWrapper;
-import jmotor.sliner.parser.SelectionExpressionParser;
+import org.sliner.Condition;
+import org.sliner.SortOperator;
+import org.sliner.Sorter;
+import org.sliner.SqlOperator;
+import org.sliner.ValueWrapper;
+import org.sliner.parser.SelectionExpressionParser;
 
 /**
  * Component:

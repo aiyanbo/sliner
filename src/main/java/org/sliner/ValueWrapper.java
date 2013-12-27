@@ -1,4 +1,4 @@
-package jmotor.sliner;
+package org.sliner;
 
 /**
  * Component:

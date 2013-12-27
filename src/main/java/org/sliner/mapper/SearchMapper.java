@@ -1,4 +1,4 @@
-package jmotor.sliner.mapper;
+package org.sliner.mapper;
 
 import java.util.Set;
 

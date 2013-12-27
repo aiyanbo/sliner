@@ -1,7 +1,7 @@
-package jmotor.sliner.generator;
+package org.sliner.generator;
 
-import jmotor.sliner.Condition;
-import jmotor.sliner.Sorter;
+import org.sliner.Condition;
+import org.sliner.Sorter;
 
 import java.util.List;
 import java.util.Map;

@@ -1,12 +1,12 @@
-package jmotor.sliner.impl;
+package org.sliner.impl;
 
-import jmotor.sliner.Condition;
-import jmotor.sliner.Sorter;
-import jmotor.sliner.SqlLiner;
-import jmotor.sliner.SqlWrapper;
-import jmotor.sliner.generator.SelectionGenerator;
-import jmotor.util.CollectionUtils;
-import jmotor.util.StringUtils;
+import org.jmotor.util.CollectionUtilities;
+import org.jmotor.util.StringUtilities;
+import org.sliner.Condition;
+import org.sliner.Sorter;
+import org.sliner.SqlLiner;
+import org.sliner.SqlWrapper;
+import org.sliner.generator.SelectionGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class SqlLinerImpl implements SqlLiner {
         sqlBuilder.append(selectionGenerator.generateEntityName(key));
         List<Condition> _conditions = selectionGenerator.generateConditions(key, conditions);
         SqlWrapper sqlWrapper = new SqlWrapper();
-        if (CollectionUtils.isNotEmpty(_conditions)) {
+        if (CollectionUtilities.isNotEmpty(_conditions)) {
             sqlBuilder.append(" WHERE ");
             List<String> lines = new ArrayList<String>(_conditions.size());
             List<String> names = new ArrayList<String>(_conditions.size());
@@ -43,18 +43,18 @@ public class SqlLinerImpl implements SqlLiner {
                 names.add(condition.getName());
                 values.add(condition.getValue());
             }
-            sqlBuilder.append(StringUtils.join(lines, StringUtils.surround(operator, " ")));
+            sqlBuilder.append(StringUtilities.join(lines, StringUtilities.surround(operator, " ")));
             sqlWrapper.setNames(names.toArray(new String[names.size()]));
             sqlWrapper.setValues(values.toArray(new Object[values.size()]));
         }
         List<Sorter> _sorters = selectionGenerator.generateSorters(key, sorters);
-        if (CollectionUtils.isNotEmpty(_sorters)) {
+        if (CollectionUtilities.isNotEmpty(_sorters)) {
             sqlBuilder.append(" ORDER BY ");
             List<String> lines = new ArrayList<String>(_sorters.size());
             for (Sorter sorter : _sorters) {
                 lines.add(sorter.getColumnName() + " " + sorter.getOperator().getOperator());
             }
-            sqlBuilder.append(StringUtils.join(lines, StringUtils.COMMA));
+            sqlBuilder.append(StringUtilities.join(lines, StringUtilities.COMMA));
         }
         sqlWrapper.setSql(sqlBuilder.toString());
         return sqlWrapper;

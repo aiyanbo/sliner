@@ -1,4 +1,4 @@
-package jmotor.sliner;
+package org.sliner;
 
 import java.util.List;
 import java.util.Map;
