@@ -8,6 +8,8 @@ before_install:
   - git clone https://github.com/aiyanbo/jmotor-utility.git
   - cd jmotor-utility
   - mvn clean install -DskipTests=true
+  - cd ..
+  - cd aiyanbo/sliner
 
 install: mvn install -DskipTests=true
 
