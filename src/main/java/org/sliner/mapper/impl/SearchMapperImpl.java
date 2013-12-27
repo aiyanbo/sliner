@@ -94,7 +94,7 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     }
 
     private Set<ConditionMapping> parseConditionMappings(List<Node> conditionNodes) {
-        Set<ConditionMapping> mappings = new HashSet<>(conditionNodes.size());
+        Set<ConditionMapping> mappings = new HashSet<ConditionMapping>(conditionNodes.size());
         for (Node node : conditionNodes) {
             String name = XmlUtilities.getAttribute(node, NAME_ATTR);
             String column = XmlUtilities.getAttribute(node, COLUMN_ATTR);
@@ -110,7 +110,7 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
 
     private Set<SorterMapping> parseSorterMappings(List<Node> sorterNodes) {
         if (CollectionUtilities.isNotEmpty(sorterNodes)) {
-            Set<SorterMapping> mappings = new HashSet<>(sorterNodes.size());
+            Set<SorterMapping> mappings = new HashSet<SorterMapping>(sorterNodes.size());
             for (Node node : sorterNodes) {
                 String name = XmlUtilities.getAttribute(node, NAME_ATTR);
                 String column = XmlUtilities.getAttribute(node, COLUMN_ATTR);
