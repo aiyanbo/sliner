@@ -7,10 +7,10 @@ jdk:
 before_install:
   - git clone https://github.com/aiyanbo/jmotor-utility.git
   - cd jmotor-utility
-  - mvn clean install -DskipTests=true
+  - mvn clean install -Dmaven.test.skip=true
   - cd ..
 
-install: mvn install -DskipTests=true
+install: mvn install
 
 notifications:
   email:
