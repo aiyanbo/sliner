@@ -1,6 +1,8 @@
 sliner
 ======
 
+[![Build Status](https://travis-ci.org/aiyanbo/sliner.png?branch=master)](https://travis-ci.org/aiyanbo/sliner)
+
 sliner 全称SQL Liner，是一个sql生成器。主要通过外部参入的表达式生成SQL查询语句。
 支持的查询操作：
 
