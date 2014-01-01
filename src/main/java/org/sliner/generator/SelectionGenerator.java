@@ -18,5 +18,5 @@ public interface SelectionGenerator {
 
     List<Condition> generateConditions(String key, Map<String, String> parameters);
 
-    List<Sorter> generateSorters(String key,List<String> expressions);
+    List<Sorter> generateSorters(String key, List<String> expressions);
 }

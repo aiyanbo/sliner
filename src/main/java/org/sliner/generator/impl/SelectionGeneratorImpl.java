@@ -1,5 +1,7 @@
 package org.sliner.generator.impl;
 
+import org.jmotor.util.StringUtilities;
+import org.jmotor.util.converter.SimpleValueConverter;
 import org.sliner.Condition;
 import org.sliner.Sorter;
 import org.sliner.SqlOperator;
@@ -9,8 +11,6 @@ import org.sliner.mapper.ConditionMapping;
 import org.sliner.mapper.SearchMapper;
 import org.sliner.mapper.SorterMapping;
 import org.sliner.parser.SelectionExpressionParser;
-import org.jmotor.util.StringUtilities;
-import org.jmotor.util.converter.SimpleValueConverter;
 
 import java.util.ArrayList;
 import java.util.List;

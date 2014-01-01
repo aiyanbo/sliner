@@ -26,6 +26,6 @@ public class AppTest extends TestCase {
         assertEquals("select * from tb_seller WHERE seller_type = ? AND seller_name like ? ORDER BY level DESC,age ASC",
                 sqlWrapper.getSql());
         System.out.println(sqlWrapper.getSql());
-        assertEquals("select * from tb_seller WHERE seller_type = ? AND seller_name like ? ORDER BY level DESC,age ASC",sqlWrapper.getSql());
+        assertEquals("select * from tb_seller WHERE seller_type = ? AND seller_name like ? ORDER BY level DESC,age ASC", sqlWrapper.getSql());
     }
 }
