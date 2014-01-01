@@ -80,6 +80,11 @@ Dependencies
  - dom4j:dom4j 1.6.1
  - com.google.guava:guava 15.0
 
+Requires
+--------
+
+- jdk1.6+
+
 Build
 ------
 ```sh
