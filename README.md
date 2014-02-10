@@ -67,7 +67,7 @@ select * from user where name LIKE '%Andy%' and age > 23
 
 Examples
 --------
-https://github.com/aiyanbo/sliner/tree/master/src/test/java/jmotor/sliner
+https://github.com/aiyanbo/sliner/blob/master/src/test/java/org/sliner/AppTest.java
 
 Version
 -------
