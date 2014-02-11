@@ -1,5 +1,6 @@
 package org.sliner.parser.impl;
 
+import org.jmotor.util.StringUtilities;
 import org.sliner.Condition;
 import org.sliner.SortOperator;
 import org.sliner.Sorter;
@@ -50,8 +51,16 @@ public class SelectionExpressionParserImpl implements SelectionExpressionParser 
         int forIndex = expression.indexOf(FOR);
         Sorter sorter = new Sorter();
         if (forIndex < 0) {
-            sorter.setName(expression);
-            sorter.setOperator(SortOperator.ASC);
+            if (expression.startsWith(StringUtilities.MINUS)) {
+                sorter.setName(expression.substring(1));
+                sorter.setOperator(SortOperator.DESC);
+            } else if (expression.startsWith(StringUtilities.PLUS)) {
+                sorter.setName(expression.substring(1));
+                sorter.setOperator(SortOperator.ASC);
+            } else {
+                sorter.setName(expression);
+                sorter.setOperator(SortOperator.ASC);
+            }
         } else {
             String name = expression.substring(0, forIndex);
             String operator = expression.substring(forIndex + 1);

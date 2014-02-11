@@ -20,7 +20,7 @@ public class AppTest extends TestCase {
         conditions.put("1", "1");// bad condition, it will be exclude the sql.
         List<String> sorters = new ArrayList<String>();
         sorters.add("count4Desc");//bad sort, it will be exclude the sql.
-        sorters.add("level4Desc");
+        sorters.add("-level");
         sorters.add("age4Asc");
         SqlWrapper sqlWrapper = sqlLiner.wrap("search", conditions, "AND", sorters);
         assertEquals("select * from tb_seller WHERE seller_type = ? AND seller_name like ? ORDER BY level DESC,age ASC",
