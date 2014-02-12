@@ -11,7 +11,7 @@ import java.util.Map;
  * Unit test for simple App.
  */
 public class AppTest extends TestCase {
-    public void test() {
+    public void testWarp() {
         SqlLiner sqlLiner = SqlLinerBuilder.newBuilder().suffix(".xml").build();
         Map<String, String> conditions = new HashMap<String, String>();
         conditions.put("sellerName4Like2a", "Andy");
@@ -27,5 +27,12 @@ public class AppTest extends TestCase {
                 sqlWrapper.getSql());
         System.out.println(sqlWrapper.getSql());
         assertEquals("select * from tb_seller WHERE seller_type = ? AND seller_name like ? ORDER BY level DESC,age ASC", sqlWrapper.getSql());
+    }
+
+    public void testWarpIdentifier() {
+        SqlLiner sqlLiner = SqlLinerBuilder.newBuilder().suffix(".xml").build();
+        SqlWrapper sqlWrapper = sqlLiner.wrapIdentifier("search", "0000");
+        assertEquals("select * from tb_seller WHERE seller_id = ?", sqlWrapper.getSql());
+        assertEquals("0000", sqlWrapper.getValues()[0]);
     }
 }

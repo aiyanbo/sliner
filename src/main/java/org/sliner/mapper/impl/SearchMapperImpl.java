@@ -56,6 +56,11 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     }
 
     @Override
+    public ConditionMapping getIdentifier(String key) {
+        return getSearchMappingInCache(key).getIdentifierMapper();
+    }
+
+    @Override
     public Set<ConditionMapping> getConditionMapper(String key) {
         return getSearchMappingInCache(key).getConditionMapper();
     }
@@ -75,6 +80,7 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
 
     @SuppressWarnings("unchecked")
     private SearchMapping parseSearchMapping(String key) {
+        SearchMapping searchMapping = new SearchMapping();
         String fileName = workingPath.replace("\\", "/") + "/" + key + suffix;
         Document document = XmlUtilities.loadDocument(fileName);
         Element rootElement = document.getRootElement();
@@ -82,10 +88,14 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
         Node conditionsNode = rootElement.selectSingleNode(CONDITIONS_NODE);
         List<Node> conditionNodes = conditionsNode.selectNodes(CONDITION_NODE);
         Set<ConditionMapping> conditionMappings = parseConditionMappings(conditionNodes);
+        ConditionMapping identifierMapper = parseIdentifier(conditionsNode);
+        if (identifierMapper != null) {
+            conditionMappings.add(identifierMapper);
+            searchMapping.setIdentifierMapper(identifierMapper);
+        }
         Node sortersNode = rootElement.selectSingleNode(SORTERS_NODE);
         List<Node> sorterNodes = sortersNode.selectNodes(SORTER_NODE);
         Set<SorterMapping> sorterMappings = parseSorterMappings(sorterNodes);
-        SearchMapping searchMapping = new SearchMapping();
         searchMapping.setKey(key);
         searchMapping.setSchema(schema);
         searchMapping.setConditionMapper(conditionMappings);
@@ -93,19 +103,32 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
         return searchMapping;
     }
 
+    private ConditionMapping parseIdentifier(Node conditionsNode) {
+        Node node = conditionsNode.selectSingleNode(IDENTIFIER_NODE);
+        if (node != null) {
+            return parseConditionMapping(node);
+        }
+        return null;
+    }
+
     private Set<ConditionMapping> parseConditionMappings(List<Node> conditionNodes) {
         Set<ConditionMapping> mappings = new HashSet<ConditionMapping>(conditionNodes.size());
         for (Node node : conditionNodes) {
-            String name = XmlUtilities.getAttribute(node, NAME_ATTR);
-            String column = XmlUtilities.getAttribute(node, COLUMN_ATTR);
-            String type = XmlUtilities.getAttribute(node, TYPE_ATTR);
-            ConditionMapping mapping = new ConditionMapping();
-            mapping.setName(name);
-            mapping.setColumnName(column);
-            mapping.setType(type);
+            ConditionMapping mapping = parseConditionMapping(node);
             mappings.add(mapping);
         }
         return mappings;
+    }
+
+    private ConditionMapping parseConditionMapping(Node node) {
+        String name = XmlUtilities.getAttribute(node, NAME_ATTR);
+        String column = XmlUtilities.getAttribute(node, COLUMN_ATTR);
+        String type = XmlUtilities.getAttribute(node, TYPE_ATTR);
+        ConditionMapping mapping = new ConditionMapping();
+        mapping.setName(name);
+        mapping.setColumnName(column);
+        mapping.setType(type);
+        return mapping;
     }
 
     private Set<SorterMapping> parseSorterMappings(List<Node> sorterNodes) {

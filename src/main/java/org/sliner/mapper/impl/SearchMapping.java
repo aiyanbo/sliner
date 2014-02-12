@@ -16,6 +16,7 @@ public class SearchMapping {
     private String key;
     private String schema;
     private Set<SorterMapping> sorterMapper;
+    private ConditionMapping identifierMapper;
     private Set<ConditionMapping> conditionMapper;
 
     public String getKey() {
@@ -40,6 +41,14 @@ public class SearchMapping {
 
     public void setSorterMapper(Set<SorterMapping> sorterMapper) {
         this.sorterMapper = sorterMapper;
+    }
+
+    public ConditionMapping getIdentifierMapper() {
+        return identifierMapper;
+    }
+
+    public void setIdentifierMapper(ConditionMapping identifierMapper) {
+        this.identifierMapper = identifierMapper;
     }
 
     public Set<ConditionMapping> getConditionMapper() {

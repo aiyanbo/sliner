@@ -11,5 +11,7 @@ import java.util.Map;
  * @author Andy Ai
  */
 public interface SqlLiner {
+    SqlWrapper wrapIdentifier(String key, String identity);
+
     SqlWrapper wrap(String key, Map<String, String> conditions, String operator, List<String> sorters);
 }

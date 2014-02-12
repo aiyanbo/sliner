@@ -5,6 +5,7 @@ import org.jmotor.util.StringUtilities;
 import org.sliner.Condition;
 import org.sliner.Sorter;
 import org.sliner.SqlLiner;
+import org.sliner.SqlOperator;
 import org.sliner.SqlWrapper;
 import org.sliner.generator.SelectionGenerator;
 
@@ -23,9 +24,26 @@ public class SqlLinerImpl implements SqlLiner {
     private SelectionGenerator selectionGenerator;
 
     @Override
-    public SqlWrapper wrap(String key, Map<String, String> conditions, String operator, List<String> sorters) {
+    public SqlWrapper wrapIdentifier(String key, String identity) {
+        Condition condition = selectionGenerator.generateIdentifier(key, identity);
         StringBuilder sqlBuilder = new StringBuilder("select * from ");
+        sqlBuilder.append(selectionGenerator.generateEntityName(key));
+        sqlBuilder.append(" WHERE ");
+        sqlBuilder.append(condition.getColumnName());
+        sqlBuilder.append(" ");
+        sqlBuilder.append(SqlOperator.EQ.getOperator());
+        sqlBuilder.append(" ?");
         SqlWrapper sqlWrapper = new SqlWrapper();
+        sqlWrapper.setSql(sqlBuilder.toString());
+        sqlWrapper.setNames(new String[]{condition.getColumnName()});
+        sqlWrapper.setValues(new Object[]{condition.getValue()});
+        return sqlWrapper;
+    }
+
+    @Override
+    public SqlWrapper wrap(String key, Map<String, String> conditions, String operator, List<String> sorters) {
+        SqlWrapper sqlWrapper = new SqlWrapper();
+        StringBuilder sqlBuilder = new StringBuilder("select * from ");
         sqlBuilder.append(selectionGenerator.generateEntityName(key));
         if (CollectionUtilities.isNotEmpty(conditions)) {
             List<Condition> _conditions = selectionGenerator.generateConditions(key, conditions);

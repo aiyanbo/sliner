@@ -34,6 +34,19 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
     }
 
     @Override
+    public Condition generateIdentifier(String key, String identity) {
+        ConditionMapping identifier = searchMapper.getIdentifier(key);
+        if (identifier == null) {
+            throw new NullPointerException("Identifier can not be empty, key: " + key);
+        }
+        Condition condition = new Condition();
+        condition.setName(identifier.getName());
+        condition.setColumnName(identifier.getColumnName());
+        condition.setValue(SimpleValueConverter.convert(identifier.getType(), identity));
+        return condition;
+    }
+
+    @Override
     public List<Condition> generateConditions(String key, Map<String, String> parameters) {
         List<Condition> result = new ArrayList<Condition>(parameters.size());
         Set<ConditionMapping> conditionMappings = searchMapper.getConditionMapper(key);

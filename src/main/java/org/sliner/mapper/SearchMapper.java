@@ -12,6 +12,8 @@ import java.util.Set;
 public interface SearchMapper {
     String getSchema(String key);
 
+    ConditionMapping getIdentifier(String key);
+
     Set<ConditionMapping> getConditionMapper(String key);
 
     Set<SorterMapping> getSorterMapper(String key);

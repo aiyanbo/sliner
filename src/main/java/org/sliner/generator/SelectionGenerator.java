@@ -16,6 +16,8 @@ import java.util.Map;
 public interface SelectionGenerator {
     String generateEntityName(String key);
 
+    Condition generateIdentifier(String key, String identity);
+
     List<Condition> generateConditions(String key, Map<String, String> parameters);
 
     List<Sorter> generateSorters(String key, List<String> expressions);
