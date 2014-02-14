@@ -35,4 +35,5 @@ public class AppTest extends TestCase {
         assertEquals("select * from tb_seller WHERE seller_id = ?", sqlWrapper.getSql());
         assertEquals("0000", sqlWrapper.getValues()[0]);
     }
+
 }

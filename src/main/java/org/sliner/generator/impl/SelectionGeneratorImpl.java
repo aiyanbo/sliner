@@ -2,6 +2,7 @@ package org.sliner.generator.impl;
 
 import org.jmotor.util.StringUtilities;
 import org.jmotor.util.converter.SimpleValueConverter;
+import org.joda.time.format.DateTimeFormatter;
 import org.sliner.Condition;
 import org.sliner.Sorter;
 import org.sliner.SqlOperator;
@@ -13,6 +14,7 @@ import org.sliner.mapper.SorterMapping;
 import org.sliner.parser.SelectionExpressionParser;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +28,7 @@ import java.util.Set;
  */
 public class SelectionGeneratorImpl implements SelectionGenerator {
     private SearchMapper searchMapper;
+    private DateTimeFormatter dateTimeFormatter;
     private SelectionExpressionParser expressionParser;
 
     @Override
@@ -71,8 +74,14 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
                 } else if (SqlOperator.IS == condition.getOperator()) {
                     condition.setValue(getAssertValue(parameter));
                 } else {
-                    Object value = SimpleValueConverter.convert(conditionMapping.getType(), parameter);
-                    condition.setValue(value);
+                    String type = conditionMapping.getType();
+                    if (Date.class.getName().equals(type)) {
+                        Date date = dateTimeFormatter.parseDateTime(parameter).toDate();
+                        condition.setValue(date);
+                    } else {
+                        Object value = SimpleValueConverter.convert(type, parameter);
+                        condition.setValue(value);
+                    }
                 }
                 result.add(condition);
             }
@@ -136,6 +145,10 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
 
     public void setSearchMapper(SearchMapper searchMapper) {
         this.searchMapper = searchMapper;
+    }
+
+    public void setDateTimeFormatter(DateTimeFormatter dateTimeFormatter) {
+        this.dateTimeFormatter = dateTimeFormatter;
     }
 
     public void setExpressionParser(SelectionExpressionParser expressionParser) {

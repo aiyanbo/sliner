@@ -1,5 +1,7 @@
 package org.sliner;
 
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 import org.sliner.generator.impl.SelectionGeneratorImpl;
 import org.sliner.impl.SqlLinerImpl;
 import org.sliner.mapper.impl.SearchMapperImpl;
@@ -16,6 +18,7 @@ public class SqlLinerBuilder {
     private String suffix = ".xml";
     private Long cacheInSeconds = 10L;
     private String workingPath = "config/mapper";
+    private DateTimeFormatter dateTimeFormatter;
 
     private SqlLinerBuilder() {
     }
@@ -32,6 +35,8 @@ public class SqlLinerBuilder {
         searchMapper.setSuffix(suffix);
         searchMapper.setWorkingPath(workingPath);
         searchMapper.setCacheInSeconds(cacheInSeconds);
+        selectionGenerator.setDateTimeFormatter(dateTimeFormatter == null ?
+                ISODateTimeFormat.dateTime() : dateTimeFormatter);
         selectionGenerator.setSearchMapper(searchMapper);
         sqlLiner.setSelectionGenerator(selectionGenerator);
         return sqlLiner;
@@ -50,6 +55,11 @@ public class SqlLinerBuilder {
 
     public SqlLinerBuilder workingPath(String workingPath) {
         this.workingPath = workingPath;
+        return this;
+    }
+
+    public SqlLinerBuilder dateTimeFormatter(DateTimeFormatter dateTimeFormatter) {
+        this.dateTimeFormatter = dateTimeFormatter;
         return this;
     }
 }
