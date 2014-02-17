@@ -3,11 +3,15 @@ package org.sliner.mapper.impl;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.util.concurrent.UncheckedExecutionException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.jmotor.util.CollectionUtilities;
 import org.jmotor.util.XmlUtilities;
+import org.jmotor.util.exception.XMLParserException;
+import org.sliner.exception.MappingNotFoundException;
+import org.sliner.exception.MappingParseException;
 import org.sliner.mapper.ConditionMapping;
 import org.sliner.mapper.SearchMapper;
 import org.sliner.mapper.SearchMapperXPath;
@@ -73,8 +77,16 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     private SearchMapping getSearchMappingInCache(String key) {
         try {
             return searchMappingCache.get(key);
+        } catch (UncheckedExecutionException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof NullPointerException) {
+                throw new MappingNotFoundException("Mapping not found. key:" + key, e);
+            } else if (cause instanceof XMLParserException) {
+                throw new MappingParseException("Mapping parse failure. key:" + key, e);
+            }
+            throw new MappingParseException("Mapping parse failure. key:" + key, e);
         } catch (ExecutionException e) {
-            throw new NullPointerException("Can't find key: " + key);
+            throw new MappingNotFoundException("Mapping not found. key:" + key, e);
         }
     }
 
