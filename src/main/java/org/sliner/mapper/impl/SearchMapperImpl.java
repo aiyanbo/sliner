@@ -80,13 +80,13 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
         } catch (UncheckedExecutionException e) {
             Throwable cause = e.getCause();
             if (cause instanceof NullPointerException) {
-                throw new MappingNotFoundException("Mapping not found. key:" + key, e);
+                throw new MappingNotFoundException("Mapping not found. key: " + key, e);
             } else if (cause instanceof XMLParserException) {
-                throw new MappingParseException("Mapping parse failure. key:" + key, e);
+                throw new MappingParseException("Mapping parse failure. key: " + key, e);
             }
-            throw new MappingParseException("Mapping parse failure. key:" + key, e);
+            throw new MappingParseException("Mapping parse failure. key: " + key, e);
         } catch (ExecutionException e) {
-            throw new MappingNotFoundException("Mapping not found. key:" + key, e);
+            throw new MappingNotFoundException("Mapping not found. key: " + key, e);
         }
     }
 
