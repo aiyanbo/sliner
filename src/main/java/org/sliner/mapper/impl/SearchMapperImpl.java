@@ -20,7 +20,9 @@ import org.sliner.mapper.SorterMapping;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -52,6 +54,21 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
                     }
                 });
 
+    }
+
+    @Override
+    public Set<String> getKeys() {
+        return searchMappingCache.asMap().keySet();
+    }
+
+    @Override
+    public Set<String> getSchemas() {
+        ConcurrentMap<String, SearchMapping> mappingConcurrentMap = searchMappingCache.asMap();
+        Set<String> schemas = new HashSet<String>(mappingConcurrentMap.size());
+        for (Map.Entry<String, SearchMapping> entry : mappingConcurrentMap.entrySet()) {
+            schemas.add(entry.getValue().getSchema());
+        }
+        return schemas;
     }
 
     @Override

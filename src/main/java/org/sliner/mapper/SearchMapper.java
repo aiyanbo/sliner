@@ -10,6 +10,10 @@ import java.util.Set;
  * @author Andy Ai
  */
 public interface SearchMapper {
+    Set<String> getKeys();
+
+    Set<String> getSchemas();
+
     String getSchema(String key);
 
     ConditionMapping getIdentifier(String key);

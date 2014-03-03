@@ -4,6 +4,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.sliner.generator.impl.SelectionGeneratorImpl;
 import org.sliner.impl.SqlLinerImpl;
+import org.sliner.mapper.SearchMapper;
 import org.sliner.mapper.impl.SearchMapperImpl;
 import org.sliner.parser.impl.SelectionExpressionParserImpl;
 
@@ -17,6 +18,7 @@ import org.sliner.parser.impl.SelectionExpressionParserImpl;
 public class SqlLinerBuilder {
     private String suffix = ".xml";
     private Long cacheInSeconds = 10L;
+    private SearchMapper searchMapper;
     private String workingPath = "config/mapper";
     private DateTimeFormatter dateTimeFormatter;
 
@@ -31,10 +33,13 @@ public class SqlLinerBuilder {
         SqlLinerImpl sqlLiner = new SqlLinerImpl();
         SelectionGeneratorImpl selectionGenerator = new SelectionGeneratorImpl();
         selectionGenerator.setExpressionParser(new SelectionExpressionParserImpl());
-        SearchMapperImpl searchMapper = new SearchMapperImpl();
-        searchMapper.setSuffix(suffix);
-        searchMapper.setWorkingPath(workingPath);
-        searchMapper.setCacheInSeconds(cacheInSeconds);
+        if (null == searchMapper) {
+            SearchMapperImpl _searchMapper = new SearchMapperImpl();
+            _searchMapper.setSuffix(suffix);
+            _searchMapper.setWorkingPath(workingPath);
+            _searchMapper.setCacheInSeconds(cacheInSeconds);
+            this.searchMapper = _searchMapper;
+        }
         selectionGenerator.setDateTimeFormatter(dateTimeFormatter == null ?
                 ISODateTimeFormat.dateTime() : dateTimeFormatter);
         selectionGenerator.setSearchMapper(searchMapper);
@@ -42,9 +47,17 @@ public class SqlLinerBuilder {
         return sqlLiner;
     }
 
+    public SearchMapper mapper() {
+        return this.searchMapper;
+    }
 
     public SqlLinerBuilder suffix(String suffix) {
         this.suffix = suffix;
+        return this;
+    }
+
+    public SqlLinerBuilder mapper(SearchMapper mapper) {
+        this.searchMapper = mapper;
         return this;
     }
 
