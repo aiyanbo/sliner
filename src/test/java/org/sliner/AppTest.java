@@ -23,8 +23,13 @@ public class AppTest extends TestCase {
         sorters.add("-level");
         sorters.add("age4Asc");
         SqlWrapper sqlWrapper = sqlLiner.wrap("search", conditions, "AND", sorters);
-        assertEquals("select * from tb_seller WHERE seller_name like ? AND seller_type = ? ORDER BY level DESC,age ASC",
-                sqlWrapper.getSql());
+        try {
+            assertEquals("select * from tb_seller WHERE seller_name like ? AND seller_type = ? ORDER BY level DESC,age ASC",
+                    sqlWrapper.getSql());
+        } catch (Exception e) {
+            assertEquals("select * from tb_seller WHERE seller_type = ? AND seller_name like ? ORDER BY level DESC,age ASC",
+                    sqlWrapper.getSql());
+        }
         System.out.println(sqlWrapper.getSql());
     }
 
