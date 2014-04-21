@@ -10,7 +10,8 @@ package org.sliner.mapper;
 public class ConditionMapping {
     private String name;
     private String type;
-    private String columnName;
+    private String column;
+    private boolean multiple;
 
     public String getName() {
         return name;
@@ -28,11 +29,20 @@ public class ConditionMapping {
         this.type = type;
     }
 
-    public String getColumnName() {
-        return columnName;
+    public String getColumn() {
+        return column;
     }
 
-    public void setColumnName(String columnName) {
-        this.columnName = columnName;
+    public void setColumn(String column) {
+        this.column = column;
     }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
+    }
+
 }

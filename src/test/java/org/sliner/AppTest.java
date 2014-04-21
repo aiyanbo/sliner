@@ -23,10 +23,9 @@ public class AppTest extends TestCase {
         sorters.add("-level");
         sorters.add("age4Asc");
         SqlWrapper sqlWrapper = sqlLiner.wrap("search", conditions, "AND", sorters);
-        assertEquals("select * from tb_seller WHERE seller_type = ? AND seller_name like ? ORDER BY level DESC,age ASC",
+        assertEquals("select * from tb_seller WHERE seller_name like ? AND seller_type = ? ORDER BY level DESC,age ASC",
                 sqlWrapper.getSql());
         System.out.println(sqlWrapper.getSql());
-        assertEquals("select * from tb_seller WHERE seller_type = ? AND seller_name like ? ORDER BY level DESC,age ASC", sqlWrapper.getSql());
     }
 
     public void testWarpIdentifier() {
@@ -34,6 +33,18 @@ public class AppTest extends TestCase {
         SqlWrapper sqlWrapper = sqlLiner.wrapIdentifier("search", "0000");
         assertEquals("select * from tb_seller WHERE seller_id = ?", sqlWrapper.getSql());
         assertEquals("0000", sqlWrapper.getValues()[0]);
+    }
+
+    public void testMultiValues() {
+        SqlLiner sqlLiner = SqlLinerBuilder.newBuilder().suffix(".xml").build();
+        Map<String, String> conditions = new HashMap<String, String>();
+        conditions.put("sellerName4In", "Andy, Lily");
+        conditions.put("sellerType", "1204");
+        SqlWrapper sqlWrapper = sqlLiner.wrap("search", conditions, "AND", null);
+        System.out.println(sqlWrapper.getSql());
+        for (Object value : sqlWrapper.getValues()) {
+            System.out.println(value);
+        }
     }
 
 }

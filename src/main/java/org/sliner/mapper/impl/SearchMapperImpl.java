@@ -135,7 +135,9 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     private ConditionMapping parseIdentifier(Node conditionsNode) {
         Node node = conditionsNode.selectSingleNode(IDENTIFIER_NODE);
         if (node != null) {
-            return parseConditionMapping(node);
+            ConditionMapping mapping = new ConditionMapping();
+            XmlUtilities.fillProperties(mapping, node);
+            return mapping;
         }
         return null;
     }
@@ -143,32 +145,19 @@ public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
     private Set<ConditionMapping> parseConditionMappings(List<Node> conditionNodes) {
         Set<ConditionMapping> mappings = new HashSet<ConditionMapping>(conditionNodes.size());
         for (Node node : conditionNodes) {
-            ConditionMapping mapping = parseConditionMapping(node);
+            ConditionMapping mapping = new ConditionMapping();
+            XmlUtilities.fillProperties(mapping, node);
             mappings.add(mapping);
         }
         return mappings;
-    }
-
-    private ConditionMapping parseConditionMapping(Node node) {
-        String name = XmlUtilities.getAttribute(node, NAME_ATTR);
-        String column = XmlUtilities.getAttribute(node, COLUMN_ATTR);
-        String type = XmlUtilities.getAttribute(node, TYPE_ATTR);
-        ConditionMapping mapping = new ConditionMapping();
-        mapping.setName(name);
-        mapping.setColumnName(column);
-        mapping.setType(type);
-        return mapping;
     }
 
     private Set<SorterMapping> parseSorterMappings(List<Node> sorterNodes) {
         if (CollectionUtilities.isNotEmpty(sorterNodes)) {
             Set<SorterMapping> mappings = new HashSet<SorterMapping>(sorterNodes.size());
             for (Node node : sorterNodes) {
-                String name = XmlUtilities.getAttribute(node, NAME_ATTR);
-                String column = XmlUtilities.getAttribute(node, COLUMN_ATTR);
                 SorterMapping mapping = new SorterMapping();
-                mapping.setName(name);
-                mapping.setColumnName(column);
+                XmlUtilities.fillProperties(mapping, node);
                 mappings.add(mapping);
             }
             return mappings;

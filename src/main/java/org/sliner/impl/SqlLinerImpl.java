@@ -12,6 +12,7 @@ import org.sliner.generator.SelectionGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Component:
@@ -57,10 +58,22 @@ public class SqlLinerImpl implements SqlLiner {
                     lineBuilder.append(condition.getColumnName());
                     lineBuilder.append(" ");
                     lineBuilder.append(condition.getOperator().getOperator());
-                    lineBuilder.append(" ?");
+                    if (condition.isMultiple()) {
+                        lineBuilder.append('(');
+                        Set<Object> multiValues = condition.getValues();
+                        lineBuilder.append(StringUtilities.repeat(StringUtilities.QUESTION_MARK,
+                                StringUtilities.COMMA, multiValues.size()));
+                        lineBuilder.append(')');
+                        for (Object _value : multiValues) {
+                            values.add(_value);
+                            names.add(condition.getName());
+                        }
+                    } else {
+                        lineBuilder.append(" ?");
+                        names.add(condition.getName());
+                        values.add(condition.getValue());
+                    }
                     lines.add(lineBuilder.toString());
-                    names.add(condition.getName());
-                    values.add(condition.getValue());
                 }
                 sqlBuilder.append(StringUtilities.join(lines, StringUtilities.surround(operator, " ")));
                 sqlWrapper.setNames(names.toArray(new String[names.size()]));

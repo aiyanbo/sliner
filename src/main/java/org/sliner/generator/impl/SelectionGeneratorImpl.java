@@ -15,6 +15,7 @@ import org.sliner.parser.SelectionExpressionParser;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
         }
         Condition condition = new Condition();
         condition.setName(identifier.getName());
-        condition.setColumnName(identifier.getColumnName());
+        condition.setColumnName(identifier.getColumn());
         condition.setValue(SimpleValueConverter.convert(identifier.getType(), identity));
         return condition;
     }
@@ -66,13 +67,33 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
                 }
             }
             if (exists) {
-                condition.setColumnName(conditionMapping.getColumnName());
+                condition.setColumnName(conditionMapping.getColumn());
                 String parameter = parameters.get(expression);
                 if (null != condition.getValueWrapper()) {
                     String value = wrapValue(condition.getValueWrapper(), parameter);
                     condition.setValue(value);
                 } else if (SqlOperator.IS == condition.getOperator()) {
                     condition.setValue(getAssertValue(parameter));
+                } else if (SqlOperator.IN == condition.getOperator()) {
+                    if (!conditionMapping.isMultiple()) {
+                        continue;
+                    }
+                    String type = conditionMapping.getType();
+                    String[] multiValues = StringUtilities.split(parameter, StringUtilities.COMMA);
+                    Set<Object> values = new HashSet<>();
+                    if (Date.class.getName().equals(type)) {
+                        for (String _value : multiValues) {
+                            Date date = dateTimeFormatter.parseDateTime(_value.trim()).toDate();
+                            values.add(date);
+                        }
+                    } else {
+                        for (String _value : multiValues) {
+                            Object value = SimpleValueConverter.convert(type, _value.trim());
+                            values.add(value);
+                        }
+                    }
+                    condition.setMultiple(true);
+                    condition.setValues(values);
                 } else {
                     String type = conditionMapping.getType();
                     if (Date.class.getName().equals(type)) {
@@ -105,7 +126,7 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
                 }
             }
             if (exits) {
-                sorter.setColumnName(sorterMapping.getColumnName());
+                sorter.setColumnName(sorterMapping.getColumn());
                 result.add(sorter);
             }
         }

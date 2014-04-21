@@ -1,5 +1,7 @@
 package org.sliner;
 
+import java.util.Set;
+
 /**
  * Component:
  * Description:
@@ -13,6 +15,8 @@ public class Condition {
     private String columnName;
     private SqlOperator operator;
     private Object value;
+    private boolean multiple;
+    private Set<Object> values;
     private ValueWrapper valueWrapper;
 
     public String getName() {
@@ -53,6 +57,22 @@ public class Condition {
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
+    }
+
+    public Set<Object> getValues() {
+        return values;
+    }
+
+    public void setValues(Set<Object> values) {
+        this.values = values;
     }
 
     public ValueWrapper getValueWrapper() {

@@ -14,6 +14,7 @@ public enum SqlOperator {
     LT("<"),
     LTE("<="),
     IS("is"),
+    IN("in"),
     LIKE("like");
 
     private String operator;

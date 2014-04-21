@@ -9,7 +9,7 @@ package org.sliner.mapper;
  */
 public class SorterMapping {
     private String name;
-    private String columnName;
+    private String column;
 
     public String getName() {
         return name;
@@ -19,11 +19,11 @@ public class SorterMapping {
         this.name = name;
     }
 
-    public String getColumnName() {
-        return columnName;
+    public String getColumn() {
+        return column;
     }
 
-    public void setColumnName(String columnName) {
-        this.columnName = columnName;
+    public void setColumn(String column) {
+        this.column = column;
     }
 }
