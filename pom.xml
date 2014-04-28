@@ -10,6 +10,28 @@
     <name>Jmotor Sliner</name>
     <url>http://maven.apache.org</url>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:aiyanbo/sliner.git</connection>
+        <developerConnection>scm:git:git@github.com:aiyanbo/sliner.git</developerConnection>
+        <url>git@github.com:aiyanbo/sliner.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>yanbo.ai</id>
+            <name>Andy Ai</name>
+            <email>yanbo.ai@gmail.com</email>
+        </developer>
+    </developers>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.11</junit.version>
