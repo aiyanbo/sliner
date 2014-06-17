@@ -72,7 +72,7 @@ https://github.com/aiyanbo/sliner/blob/master/src/test/java/org/sliner/AppTest.j
 
 Version
 -------
-0.0.1
+0.0.2
 
 Dependencies
 ------------
@@ -113,7 +113,7 @@ Maven
 <dependency>
     <groupId>org.sliner</groupId>
     <artifactId>sliner</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
@@ -123,7 +123,7 @@ Gradle
 ```groovy
 
 dependencies{
-    compile 'org.sliner:sliner:0.0.1'
+    compile 'org.sliner:sliner:0.0.2'
 }
 
 ```
