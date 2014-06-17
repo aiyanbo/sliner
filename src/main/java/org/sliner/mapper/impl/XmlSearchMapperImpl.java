@@ -33,13 +33,13 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Andy Ai
  */
-public class SearchMapperImpl implements SearchMapper, SearchMapperXPath {
+public class XmlSearchMapperImpl implements SearchMapper, SearchMapperXPath {
     private LoadingCache<String, SearchMapping> searchMappingCache;
     private String suffix = ".xml";
     private Long cacheInSeconds = 10L;
     private String workingPath = "config/mapper";
 
-    public SearchMapperImpl() {
+    public XmlSearchMapperImpl() {
         initComponent();
     }
 

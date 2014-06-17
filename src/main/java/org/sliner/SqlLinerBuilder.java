@@ -5,7 +5,7 @@ import org.joda.time.format.ISODateTimeFormat;
 import org.sliner.generator.impl.SelectionGeneratorImpl;
 import org.sliner.impl.SqlLinerImpl;
 import org.sliner.mapper.SearchMapper;
-import org.sliner.mapper.impl.SearchMapperImpl;
+import org.sliner.mapper.impl.XmlSearchMapperImpl;
 import org.sliner.parser.impl.SelectionExpressionParserImpl;
 
 /**
@@ -34,7 +34,7 @@ public class SqlLinerBuilder {
         SelectionGeneratorImpl selectionGenerator = new SelectionGeneratorImpl();
         selectionGenerator.setExpressionParser(new SelectionExpressionParserImpl());
         if (null == searchMapper) {
-            SearchMapperImpl _searchMapper = new SearchMapperImpl();
+            XmlSearchMapperImpl _searchMapper = new XmlSearchMapperImpl();
             _searchMapper.setSuffix(suffix);
             _searchMapper.setWorkingPath(workingPath);
             _searchMapper.setCacheInSeconds(cacheInSeconds);
