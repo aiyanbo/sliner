@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Unit test for simple App.
  */
-public class AppTest extends TestCase {
+public class XmlMappingTest extends TestCase {
     public void testWarp() {
         SqlLiner sqlLiner = SqlLinerBuilder.newBuilder().suffix(".xml").build();
         Map<String, String> conditions = new HashMap<String, String>();
