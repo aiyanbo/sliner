@@ -1,5 +1,6 @@
 package org.sliner.mapper.impl;
 
+import com.google.common.collect.ImmutableSet;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -26,7 +27,7 @@ public class XmlSearchMapperImpl extends AbstractSearchMapper implements SearchM
     private String workingPath = "config/mapper";
 
     @SuppressWarnings("unchecked")
-    public SearchMapping parseSearchMapping(String key) {
+    public SearchMapping parseSearchMapping(String key) throws Exception {
         SearchMapping searchMapping = new SearchMapping();
         String fileName = workingPath.replace("\\", "/") + "/" + key + suffix;
         Document document = XmlUtilities.loadDocument(fileName);
@@ -45,8 +46,8 @@ public class XmlSearchMapperImpl extends AbstractSearchMapper implements SearchM
         Set<SorterMapping> sorterMappings = parseSorterMappings(sorterNodes);
         searchMapping.setKey(key);
         searchMapping.setSchema(schema);
-        searchMapping.setConditionMapper(conditionMappings);
-        searchMapping.setSorterMapper(sorterMappings);
+        searchMapping.setConditionMapper(ImmutableSet.<ConditionMapping>builder().addAll(conditionMappings).build());
+        searchMapping.setSorterMapper(ImmutableSet.<SorterMapping>builder().addAll(sorterMappings).build());
         return searchMapping;
     }
 

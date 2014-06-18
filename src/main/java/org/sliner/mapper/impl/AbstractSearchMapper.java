@@ -96,7 +96,7 @@ public abstract class AbstractSearchMapper implements SearchMapper {
         }
     }
 
-    protected abstract SearchMapping parseSearchMapping(String key);
+    protected abstract SearchMapping parseSearchMapping(String key) throws Exception;
 
     public void setCacheInSeconds(Long cacheInSeconds) {
         this.cacheInSeconds = cacheInSeconds;

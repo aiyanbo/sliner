@@ -1,9 +1,8 @@
 package org.sliner.mapper.impl;
 
+import com.google.common.collect.ImmutableSet;
 import org.sliner.mapper.ConditionMapping;
 import org.sliner.mapper.SorterMapping;
-
-import java.util.Set;
 
 /**
  * Component:
@@ -15,9 +14,9 @@ import java.util.Set;
 public class SearchMapping {
     private String key;
     private String schema;
-    private Set<SorterMapping> sorterMapper;
     private ConditionMapping identifierMapper;
-    private Set<ConditionMapping> conditionMapper;
+    private ImmutableSet<SorterMapping> sorterMapper;
+    private ImmutableSet<ConditionMapping> conditionMapper;
 
     public String getKey() {
         return key;
@@ -35,14 +34,6 @@ public class SearchMapping {
         this.schema = schema;
     }
 
-    public Set<SorterMapping> getSorterMapper() {
-        return sorterMapper;
-    }
-
-    public void setSorterMapper(Set<SorterMapping> sorterMapper) {
-        this.sorterMapper = sorterMapper;
-    }
-
     public ConditionMapping getIdentifierMapper() {
         return identifierMapper;
     }
@@ -51,11 +42,19 @@ public class SearchMapping {
         this.identifierMapper = identifierMapper;
     }
 
-    public Set<ConditionMapping> getConditionMapper() {
+    public ImmutableSet<SorterMapping> getSorterMapper() {
+        return sorterMapper;
+    }
+
+    public void setSorterMapper(ImmutableSet<SorterMapping> sorterMapper) {
+        this.sorterMapper = sorterMapper;
+    }
+
+    public ImmutableSet<ConditionMapping> getConditionMapper() {
         return conditionMapper;
     }
 
-    public void setConditionMapper(Set<ConditionMapping> conditionMapper) {
+    public void setConditionMapper(ImmutableSet<ConditionMapping> conditionMapper) {
         this.conditionMapper = conditionMapper;
     }
 }

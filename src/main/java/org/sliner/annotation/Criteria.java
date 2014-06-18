@@ -15,4 +15,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Criteria {
+    boolean multiple() default false;
 }
