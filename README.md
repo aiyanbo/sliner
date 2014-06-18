@@ -68,7 +68,8 @@ select * from user where name LIKE '%Andy%' and age > 23
 
 Examples
 --------
-https://github.com/aiyanbo/sliner/blob/master/src/test/java/org/sliner/AppTest.java
+- https://github.com/aiyanbo/sliner/blob/master/src/test/java/org/sliner/XmlMappingTest.java
+- https://github.com/aiyanbo/sliner/blob/master/src/test/java/org/sliner/JpaMappingTest.java
 
 Version
 -------
@@ -79,7 +80,7 @@ Dependencies
  - org.jmotor:jmotor-utility 1.0-SNAPSHOT
  - jaxen:jaxen 1.1.1
  - dom4j:dom4j 1.6.1
- - com.google.guava:guava 15.0
+ - com.google.guava:guava 17.0
 
 Requires
 --------
