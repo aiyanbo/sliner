@@ -85,7 +85,7 @@ Dependencies
 Requires
 --------
 
-- jdk1.6+
+- jdk1.7+
 
 Build
 ------
