@@ -10,6 +10,7 @@ import org.sliner.annotation.Criteria;
 import org.sliner.annotation.Managed;
 import org.sliner.annotation.Sorting;
 import org.sliner.mapper.ConditionMapping;
+import org.sliner.mapper.MappingParser;
 import org.sliner.mapper.SorterMapping;
 
 import javax.persistence.Column;
@@ -29,11 +30,11 @@ import java.util.List;
  *
  * @author Andy Ai
  */
-public class JpaSearchMapperImpl extends AbstractSearchMapper {
+public class JpaMappingParserImpl implements MappingParser {
     private List<Class> classes;
 
     @Override
-    protected SearchMapping parseSearchMapping(final String key) throws Exception {
+    public SearchMapping parseSearchMapping(final String key) throws Exception {
         Class clazz = CollectionUtilities.find(classes, new Validator<Class>() {
             @Override
             public boolean validate(Class clazz) {

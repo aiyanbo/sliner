@@ -7,6 +7,7 @@ import org.dom4j.Node;
 import org.jmotor.util.CollectionUtilities;
 import org.jmotor.util.XmlUtilities;
 import org.sliner.mapper.ConditionMapping;
+import org.sliner.mapper.MappingParser;
 import org.sliner.mapper.SearchMapperXPath;
 import org.sliner.mapper.SorterMapping;
 
@@ -22,7 +23,7 @@ import java.util.Set;
  *
  * @author Andy Ai
  */
-public class XmlSearchMapperImpl extends AbstractSearchMapper implements SearchMapperXPath {
+public class XmlMappingParserImpl implements MappingParser, SearchMapperXPath {
     private String suffix = ".xml";
     private String workingPath = "config/mapper";
 
