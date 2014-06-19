@@ -69,10 +69,11 @@ public class JpaMappingParserImpl implements MappingParser {
             if (desc instanceof Field) {
                 Field field = (Field) desc;
                 Column _column = field.getAnnotation(Column.class);
-                if (null == _column) {
-                    continue;
+                if (null != _column) {
+                    column = _column.name();
+                } else {
+                    column = StringUtilities.nameOfDatabase(field.getName());
                 }
-                column = _column.name();
                 type = field.getType().getName();
                 name = StringUtilities.nameOfDatabase(field.getName());
                 id = field.getAnnotation(Id.class);
@@ -82,10 +83,11 @@ public class JpaMappingParserImpl implements MappingParser {
                 PropertyDescriptor propertyDescriptor = (PropertyDescriptor) desc;
                 Method method = propertyDescriptor.getReadMethod();
                 Column _column = method.getAnnotation(Column.class);
-                if (null == _column) {
-                    continue;
+                if (null != _column) {
+                    column = _column.name();
+                } else {
+                    column = StringUtilities.nameOfDatabase(propertyDescriptor.getName());
                 }
-                column = _column.name();
                 type = propertyDescriptor.getPropertyType().getName();
                 name = StringUtilities.nameOfDatabase(propertyDescriptor.getName());
                 id = method.getAnnotation(Id.class);
