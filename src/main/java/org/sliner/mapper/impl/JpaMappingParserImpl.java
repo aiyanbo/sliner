@@ -16,6 +16,7 @@ import org.sliner.mapper.SorterMapping;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -53,8 +54,7 @@ public class JpaMappingParserImpl implements MappingParser {
         SearchMapping searchMapping = new SearchMapping();
         Managed managed = (Managed) clazz.getAnnotation(Managed.class);
         searchMapping.setKey(managed.key());
-        Entity entity = (Entity) clazz.getAnnotation(Entity.class);
-        searchMapping.setSchema(entity.name());
+        searchMapping.setSchema(getSchema(clazz));
         List descs = new ArrayList();
         descs.addAll(Arrays.asList(ClassUtilities.getFields(clazz)));
         descs.addAll(Arrays.asList(ClassUtilities.getPropertyDescriptors(clazz)));
@@ -123,6 +123,21 @@ public class JpaMappingParserImpl implements MappingParser {
         return searchMapping;
     }
 
+    private String getSchema(Class clazz) {
+        Entity entity = (Entity) clazz.getAnnotation(Entity.class);
+        String schema = null;
+        if (entity != null) {
+            schema = entity.name();
+        }
+        if (StringUtilities.isNotBlank(schema)) {
+            return schema;
+        }
+        Table table = (Table) clazz.getAnnotation(Table.class);
+        if (table != null) {
+            schema = table.name();
+        }
+        return StringUtilities.isNotBlank(schema) ? schema : clazz.getSimpleName();
+    }
 
     //todo: scan by package name
     public void register(List<Class> classes) {

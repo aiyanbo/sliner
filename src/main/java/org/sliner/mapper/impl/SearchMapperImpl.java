@@ -104,7 +104,7 @@ public class SearchMapperImpl implements SearchMapper {
                 throw new MappingParseException("Mapping parse failure. key: " + key, e);
             }
             throw new MappingParseException("Mapping parse failure. key: " + key, e);
-        } catch (ExecutionException e) {
+        } catch (ExecutionException | CacheLoader.InvalidCacheLoadException e) {
             throw new MappingNotFoundException("Mapping not found. key: " + key, e);
         }
     }
