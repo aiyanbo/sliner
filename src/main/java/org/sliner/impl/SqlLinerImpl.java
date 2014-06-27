@@ -39,7 +39,7 @@ public class SqlLinerImpl implements SqlLiner {
     public SqlWrapper wrapIdentifier(String key, String identity, Map<String, String> arguments) {
         SqlWrapper sqlWrapper = new SqlWrapper();
         List<Condition> conditions = selectionGenerator.generateIdentifier(key, identity, arguments);
-        SqlWrapper result = flattenConditions(conditions, StringUtilities.AND_MARK);
+        SqlWrapper result = flattenConditions(conditions, "AND");
         sqlWrapper.setSql("select * from " + selectionGenerator.generateEntityName(key) + result.getSql());
         sqlWrapper.setNames(result.getNames());
         sqlWrapper.setValues(result.getValues());

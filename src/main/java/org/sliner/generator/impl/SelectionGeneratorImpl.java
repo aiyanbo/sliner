@@ -46,6 +46,7 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
         Condition condition = new Condition();
         condition.setName(identifier.getName());
         condition.setColumnName(identifier.getColumn());
+        condition.setOperator(SqlOperator.EQ);
         condition.setValue(SimpleValueConverter.convert(identifier.getType(), identity));
         return condition;
     }
