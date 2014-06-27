@@ -33,13 +33,23 @@ public class XmlMappingTest extends TestCase {
         assertEquals("0000", sqlWrapper.getValues()[0]);
     }
 
+    public void testWarpIdentifierAndArguments() {
+        SqlLiner sqlLiner = SqlLinerBuilder.newBuilder().suffix(".xml").build();
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put("partitionId", "1");
+        SqlWrapper sqlWrapper = sqlLiner.wrapIdentifier("search", "0000", arguments);
+        assertTrue(sqlWrapper.getSql().contains("seller_id"));
+        assertTrue(sqlWrapper.getSql().contains("partition_id"));
+        assertEquals("0000", sqlWrapper.getValues()[0]);
+    }
+
     public void testMultiValues() {
         SqlLiner sqlLiner = SqlLinerBuilder.newBuilder().suffix(".xml").build();
         Map<String, String> conditions = new HashMap<String, String>();
         conditions.put("sellerName4In", "Andy, Lily");
         conditions.put("sellerType", "1204");
         SqlWrapper sqlWrapper = sqlLiner.wrap("search", conditions, "AND", null);
-        System.out.println(sqlWrapper.getSql());
+        assertTrue(sqlWrapper.getSql().contains("seller_name in"));
         for (Object value : sqlWrapper.getValues()) {
             System.out.println(value);
         }

@@ -3,6 +3,7 @@
     <conditions>
         <id name="sellerId" column="seller_id" type="java.lang.String"/>
         <condition name="sellerType" column="seller_type" type="java.lang.Long"/>
+        <condition name="partitionId" column="partition_id" type="java.lang.Long"/>
         <condition name="sellerName" column="seller_name" type="java.lang.String" multiple="true"/>
     </conditions>
     <sorters>

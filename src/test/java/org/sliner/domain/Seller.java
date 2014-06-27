@@ -24,6 +24,9 @@ public class Seller {
 
     private String sellerName;
     @Criteria
+    @Column(name = "partition_id")
+    private Long partitionId;
+    @Criteria
     @Column(name = "seller_type")
     private Long sellerType;
     @Sorting
@@ -74,5 +77,13 @@ public class Seller {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public Long getPartitionId() {
+        return partitionId;
+    }
+
+    public void setPartitionId(Long partitionId) {
+        this.partitionId = partitionId;
     }
 }

@@ -38,6 +38,15 @@ public class JpaMappingTest extends TestCase {
         assertEquals("0000", sqlWrapper.getValues()[0]);
     }
 
+    public void testWarpIdentifierAndArguments() {
+        Map<String, String> arguments = new HashMap<>();
+        arguments.put("partitionId", "1");
+        SqlWrapper sqlWrapper = sqlLiner.wrapIdentifier("search", "0000", arguments);
+        assertTrue(sqlWrapper.getSql().contains("seller_id"));
+        assertTrue(sqlWrapper.getSql().contains("partition_id"));
+        assertEquals("0000", sqlWrapper.getValues()[0]);
+    }
+
     public void testMultiValues() {
         Map<String, String> conditions = new HashMap<String, String>();
         conditions.put("seller_name4In", "Andy, Lily");
