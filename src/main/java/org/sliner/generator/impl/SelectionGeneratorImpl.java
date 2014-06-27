@@ -51,8 +51,16 @@ public class SelectionGeneratorImpl implements SelectionGenerator {
     }
 
     @Override
+    public List<Condition> generateIdentifier(String key, String identity, Map<String, String> arguments) {
+        List<Condition> result = new ArrayList<>(arguments.size() + 1);
+        result.add(generateIdentifier(key, identity));
+        result.addAll(generateConditions(key, arguments));
+        return result;
+    }
+
+    @Override
     public List<Condition> generateConditions(String key, Map<String, String> parameters) {
-        List<Condition> result = new ArrayList<Condition>(parameters.size());
+        List<Condition> result = new ArrayList<>(parameters.size());
         Set<ConditionMapping> conditionMappings = searchMapper.getConditionMapper(key);
         for (String expression : parameters.keySet()) {
             Condition condition = expressionParser.parseCondition(expression);

@@ -18,6 +18,8 @@ public interface SelectionGenerator {
 
     Condition generateIdentifier(String key, String identity);
 
+    List<Condition> generateIdentifier(String key, String identity, Map<String, String> arguments);
+
     List<Condition> generateConditions(String key, Map<String, String> parameters);
 
     List<Sorter> generateSorters(String key, List<String> expressions);
