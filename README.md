@@ -62,7 +62,8 @@ sliner 根据目标实体和参数生成SQL查询语句
 
 ```sql
 
-select * from user where name LIKE '%Andy%' and age > 23
+select * from user where name LIKE '%?%' and age > ?
+parameters: ["Andy", 23]
 
 ```
 
